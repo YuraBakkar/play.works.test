@@ -38,3 +38,10 @@ body {
     padding: 10px;
     cursor: pointer;
 }
+
+#ads {
+    overflow: auto;
+    position: absolute;
+    left: 0;
+    top: 0;
+}

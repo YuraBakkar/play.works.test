@@ -9,7 +9,8 @@ class TRenderer {
             this.canvas = canvas
             element.appendChild(canvas)
         } else {
-            console.log(`Element "${elem}" does not exist`)
+            console.error(`Element "${elem}" does not exist`)
+            return
         }
         canvas.addEventListener('click', () => {
             this.context.beginPath()
@@ -37,7 +38,7 @@ class TRenderer {
         this.hide()
 
         this.markXColor = markXColor
-        this.markOColor = markOColor 
+        this.markOColor = markOColor
 
         this.positionColorR = positionColorR
         this.positionColorG = positionColorG
@@ -50,8 +51,8 @@ class TRenderer {
     }
     changePositionAlpha() {
         this.positionAlpha += this.positionAlphaDelta * this.positionAlphaDeltaSign
-        if (this.positionAlpha <= 0) {
-            this.positionAlpha = 0
+        if (this.positionAlpha <= 0.1) {
+            this.positionAlpha = 0.1
             this.positionAlphaDeltaSign = 1
         }
         if (this.positionAlpha >= 1) {
@@ -60,10 +61,10 @@ class TRenderer {
         }
     }
     show() {
-        if (this.canvas) this.canvas.style.display = 'block'
+        this.canvas.style.display = 'block'
     }
     hide() {
-        if (this.canvas) this.canvas.style.display = 'none'
+        this.canvas.style.display = 'none'
     }
     clearField() {
         this.context.fillRect(0, 0, this.width, this.height)
@@ -98,7 +99,7 @@ class TRenderer {
             this.context.lineWidth = 5
             this.context.beginPath()
             this.context.moveTo(x * this.size1 + 5, y * this.size1 + 5)
-            this.context.lineTo((x + 1) * this.size1 - 5, (y + 1) * this.size1  - 5)
+            this.context.lineTo((x + 1) * this.size1 - 5, (y + 1) * this.size1 - 5)
             this.context.moveTo(x * this.size1 + 5, (y + 1) * this.size1 - 5)
             this.context.lineTo((x + 1) * this.size1 - 5, y * this.size1 + 5)
             this.context.stroke()
@@ -109,5 +110,14 @@ class TRenderer {
             this.context.arc(x * this.size1 + this.size1 / 2, y * this.size1 + this.size1 / 2, this.size1 / 3, 0, 2 * Math.PI);
             this.context.stroke()
         }
+    }
+    drawTexts(texts) {
+        let font = this.context.font
+        this.context.strokeStyle = 'rgb(0,0,0)'
+        this.context.font = '30px Serif'
+        for (let i = 0; i < texts.length; i++) {
+            this.context.strokeText(texts[i], this.countX * this.size1 + 50, 30 + i * 40)
+        }
+        this.context.font = font
     }
 }

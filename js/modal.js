@@ -12,6 +12,7 @@ class TModal extends TStage {
     create() {
         let wrapper = document.createElement('div')
         wrapper.classList.add('modal')
+        wrapper.style.zIndex = '1000'
         
         let titleWrapper = document.createElement('div')
         titleWrapper.classList.add('title')
@@ -35,6 +36,7 @@ class TModal extends TStage {
             if(this.okFunction && typeof this.okFunction === 'function') this.okFunction()
             this.hide()
         })
+        this.okButton = okButton
         buttonsWrapper.appendChild(okButton)
         let cancelButton = document.createElement('button')
         cancelButton.classList.add('cancel')
@@ -62,6 +64,7 @@ class TModal extends TStage {
     }
     show() {
         this.wrapper.style.display = 'block'
+        this.okButton.focus()
     }
     destroy() {
         if(this.wrapper) this.wrapper.remove()
