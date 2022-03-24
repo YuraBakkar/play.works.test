@@ -37,6 +37,7 @@ class TGame extends TStage {
                     break
                 case 'Backspace':
                     if (!this.victory) {
+                        this.move = true
                         this.undoMove()
                     } else {
                         this.exit()
@@ -113,6 +114,7 @@ class TGame extends TStage {
                 this.checkVictory(move.x, move.y)
                 //this.currentMark = !this.currentMark
             }
+            this.move = false
         }
     }
     showVictory(mark) {
